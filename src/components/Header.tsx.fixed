@@ -1,0 +1,406 @@
+'use client'
+
+import React, { useState, useRef, useEffect } from 'react'
+import Link from 'next/link'
+import Image from 'next/image'
+import LanguageSwitcher from '@/components/LanguageSwitcher'
+import DarkModeToggle from '@/components/DarkModeToggle'
+import { useTranslation } from '@/contexts/TranslationContext'
+
+const Header = () => {
+  const { t } = useTranslation()
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null)
+  const dropdownRefs = {
+    about: useRef<HTMLDivElement>(null),
+    services: useRef<HTMLDivElement>(null)
+  }
+
+  // Close dropdowns when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        openDropdown && 
+        dropdownRefs[openDropdown as keyof typeof dropdownRefs]?.current && 
+        !dropdownRefs[openDropdown as keyof typeof dropdownRefs]?.current?.contains(event.target as Node)
+      ) {
+        setOpenDropdown(null)
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [openDropdown])
+
+  // Close mobile menu when resizing to desktop
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 1024) { // lg breakpoint
+        setIsMenuOpen(false)
+      }
+    }
+
+    window.addEventListener('resize', handleResize)
+    return () => {
+      window.removeEventListener('resize', handleResize)
+    }
+  }, [])
+
+  // Handle dropdown toggle for desktop
+  const handleDesktopDropdownToggle = (dropdownName: string) => {
+    setOpenDropdown(openDropdown === dropdownName ? null : dropdownName)
+  }
+
+  return (
+    <header className="corporate-header sticky top-0 z-50">
+      <div className="container-corporate px-4">
+        <div className="flex justify-between items-center h-20">
+          {/* Logo */}
+          <div className="flex items-center">
+            <Link href="/" className="flex items-center">
+              <div className="relative w-16 h-16 mr-0">
+                <Image 
+                  src="/logo.png" 
+                  alt="E-DGRMO Logo" 
+                  fill
+                  className="object-contain"
+                  priority
+                />
+              </div>
+            </Link>
+          </div>
+
+          {/* Desktop Navigation */}
+          <nav className="hidden lg:flex space-x-1">
+            <Link
+              href="/"
+              className="text-gray-700 hover:text-primary-blue font-medium transition px-4 py-3 rounded-md hover:bg-light-blue dark:text-gray-300 dark:hover:text-white dark:hover:bg-dark-charcoal"
+            >
+              {t('home')}
+            </Link>
+            
+            {/* About Dropdown */}
+            <div 
+              className="relative"
+              ref={dropdownRefs.about}
+            >
+              <button
+                className="text-gray-700 hover:text-primary-blue font-medium transition px-4 py-3 rounded-md hover:bg-light-blue dark:text-gray-300 dark:hover:text-white dark:hover:bg-dark-charcoal flex items-center"
+                onClick={() => handleDesktopDropdownToggle('about')}
+                onMouseEnter={() => setOpenDropdown('about')}
+                onMouseLeave={() => setTimeout(() => {
+                  if (!dropdownRefs.about.current?.matches(':hover')) {
+                    setOpenDropdown(null)
+                  }
+                }, 100)}
+              >
+                {t('about')}
+                <span className="ml-1">▼</span>
+              </button>
+              
+              {openDropdown === 'about' && (
+                <div className="absolute left-0 mt-2 w-48 bg-white shadow-lg rounded-md py-2 z-50 border border-gray-200 dark:bg-dark-navy dark:border-gray-700">
+                  <Link
+                    href="/about"
+                    className="block px-6 py-2 text-gray-700 hover:text-primary-blue hover:bg-light-blue dark:text-gray-300 dark:hover:text-white dark:hover:bg-dark-charcoal"
+                    onClick={() => setOpenDropdown(null)}
+                  >
+                    {t('about')}
+                  </Link>
+                  <Link
+                    href="/mission"
+                    className="block px-6 py-2 text-gray-700 hover:text-primary-blue hover:bg-light-blue dark:text-gray-300 dark:hover:text-white dark:hover:bg-dark-charcoal"
+                    onClick={() => setOpenDropdown(null)}
+                  >
+                    {t('mission')}
+                  </Link>
+                  <Link
+                    href="/organization"
+                    className="block px-6 py-2 text-gray-700 hover:text-primary-blue hover:bg-light-blue dark:text-gray-300 dark:hover:text-white dark:hover:bg-dark-charcoal"
+                    onClick={() => setOpenDropdown(null)}
+                  >
+                    {t('organization')}
+                  </Link>
+                </div>
+              )}
+            </div>
+            
+            {/* Services Dropdown */}
+            <div 
+              className="relative"
+              ref={dropdownRefs.services}
+            >
+              <button
+                className="text-gray-700 hover:text-primary-blue font-medium transition px-4 py-3 rounded-md hover:bg-light-blue dark:text-gray-300 dark:hover:text-white dark:hover:bg-dark-charcoal flex items-center"
+                onClick={() => handleDesktopDropdownToggle('services')}
+                onMouseEnter={() => setOpenDropdown('services')}
+              onMouseLeave={() => setOpenDropdown(null)}
+            >
+              
+              {openDropdown === 'services' && (
+                <div className="absolute left-0 mt-2 w-64 bg-white shadow-lg rounded-md py-2 z-50 border border-gray-200 dark:bg-dark-navy dark:border-gray-700">
+                  <Link
+                    href="/services"
+                    className="block px-6 py-2 text-gray-700 hover:text-primary-blue hover:bg-light-blue dark:text-gray-300 dark:hover:text-white dark:hover:bg-dark-charcoal"
+                    onClick={() => setOpenDropdown(null)}
+                  >
+                    {t('services')}
+                  </Link>
+                  <Link
+                    href="/payment"
+                    className="block px-6 py-2 text-gray-700 hover:text-primary-blue hover:bg-light-blue dark:text-gray-300 dark:hover:text-white dark:hover:bg-dark-charcoal"
+                    onClick={() => setOpenDropdown(null)}
+                  >
+                    {t('online-payment')}
+                  </Link>
+                  <Link
+                    href="/verification"
+                    className="block px-6 py-2 text-gray-700 hover:text-primary-blue hover:bg-light-blue dark:text-gray-300 dark:hover:text-white dark:hover:bg-dark-charcoal"
+                    onClick={() => setOpenDropdown(null)}
+                  >
+                    {t('receipt-verification')}
+                  </Link>
+                  <Link
+                    href="/complaint"
+                    className="block px-6 py-2 text-gray-700 hover:text-primary-blue hover:bg-light-blue dark:text-gray-300 dark:hover:text-white dark:hover:bg-dark-charcoal"
+                    onClick={() => setOpenDropdown(null)}
+                  >
+                    {t('complaint')}
+                  </Link>
+                </div>
+              )}
+            </div>
+            
+            <Link
+              href="/news"
+              className="text-gray-700 hover:text-primary-blue font-medium transition px-4 py-3 rounded-md hover:bg-light-blue dark:text-gray-300 dark:hover:text-white dark:hover:bg-dark-charcoal"
+            >
+              {t('news')}
+            </Link>
+            
+            <Link
+              href="/faq"
+              className="text-gray-700 hover:text-primary-blue font-medium transition px-4 py-3 rounded-md hover:bg-light-blue dark:text-gray-300 dark:hover:text-white dark:hover:bg-dark-charcoal"
+            >
+              {t('faq')}
+            </Link>
+            
+            <Link
+              href="/contact"
+              className="text-gray-700 hover:text-primary-blue font-medium transition px-4 py-3 rounded-md hover:bg-light-blue dark:text-gray-300 dark:hover:text-white dark:hover:bg-dark-charcoal"
+            >
+              {t('contact')}
+            </Link>
+          </nav>
+
+          {/* Auth Buttons, Language Switcher, and Dark Mode Toggle */}
+          <div className="hidden lg:flex items-center space-x-3">
+            <DarkModeToggle />
+            <LanguageSwitcher />
+            <Link
+              href="/login"
+              className="text-gray-700 hover:text-primary-blue font-medium px-4 py-2 rounded-md transition dark:text-gray-300 dark:hover:text-white"
+            >
+              {t('login')}
+            </Link>
+            <Link
+              href="/register"
+              className="btn-primary"
+            >
+              {t('register')}
+            </Link>
+          </div>
+
+          {/* Mobile menu button */}
+          <button
+            className="lg:hidden text-gray-700 hover:text-primary-blue p-2 rounded-md dark:text-gray-300 dark:hover:text-white"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+          >
+            <span className="sr-only">Ouvrir le menu principal</span>
+            {isMenuOpen ? (
+              <span className="text-2xl">✕</span>
+            ) : (
+              <span className="text-2xl">☰</span>
+            )}
+          </button>
+        </div>
+
+        {/* Mobile Navigation */}
+        {isMenuOpen && (
+          <div className="lg:hidden py-4 border-t border-gray-200 dark:border-gray-700">
+            <div className="flex flex-col space-y-2">
+              <Link
+                href="/"
+                className="text-gray-700 hover:text-primary-blue font-medium py-2 px-4 rounded-md hover:bg-light-blue dark:text-gray-300 dark:hover:text-white dark:hover:bg-dark-charcoal"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                {t('home')}
+              </Link>
+              
+              {/* About Mobile Dropdown */}
+              <div className="py-2 px-4">
+                <button
+                  className="text-gray-700 hover:text-primary-blue font-medium w-full text-left flex justify-between items-center"
+                  onClick={() => setOpenDropdown(openDropdown === 'about' ? null : 'about')}
+                >
+                  {t('about')}
+                  <span>{openDropdown === 'about' ? '▲' : '▼'}</span>
+                </button>
+                {openDropdown === 'about' && (
+                  <div className="pl-4 mt-2 space-y-2">
+                    <Link
+                      href="/about"
+                      className="block text-gray-700 hover:text-primary-blue py-2 dark:text-gray-300 dark:hover:text-white"
+                      onClick={() => {
+                        setIsMenuOpen(false)
+                        setOpenDropdown(null)
+                      }}
+                    >
+                      {t('about')}
+                    </Link>
+                    <Link
+                      href="/mission"
+                      className="block text-gray-700 hover:text-primary-blue py-2 dark:text-gray-300 dark:hover:text-white"
+                      onClick={() => {
+                        setIsMenuOpen(false)
+                        setOpenDropdown(null)
+                      }}
+                    >
+                      {t('mission')}
+                    </Link>
+                    <Link
+                      href="/organization"
+                      className="block text-gray-700 hover:text-primary-blue py-2 dark:text-gray-300 dark:hover:text-white"
+                      onClick={() => {
+                        setIsMenuOpen(false)
+                        setOpenDropdown(null)
+                      }}
+                    >
+                      {t('organization')}
+                    </Link>
+                  </div>
+                )}
+              </div>
+              
+              {/* Services Mobile Dropdown */}
+              <div className="py-2 px-4">
+                <button
+                  className="text-gray-700 hover:text-primary-blue font-medium w-full text-left flex justify-between items-center"
+                  onClick={() => setOpenDropdown(openDropdown === 'services' ? null : 'services')}
+                >
+                  {t('services')}
+                  <span>{openDropdown === 'services' ? '▲' : '▼'}</span>
+                </button>
+                {openDropdown === 'services' && (
+                  <div className="pl-4 mt-2 space-y-2">
+                    <Link
+                      href="/services"
+                      className="block text-gray-700 hover:text-primary-blue py-2 dark:text-gray-300 dark:hover:text-white"
+                      onClick={() => {
+                        setIsMenuOpen(false)
+                        setOpenDropdown(null)
+                      }}
+                    >
+                      {t('services')}
+                    </Link>
+                    <Link
+                      href="/tax-categories"
+                      className="block text-gray-700 hover:text-primary-blue py-2 dark:text-gray-300 dark:hover:text-white"
+                      onClick={() => {
+                        setIsMenuOpen(false)
+                        setOpenDropdown(null)
+                      }}
+                    >
+                      {t('tax-categories')}
+                    </Link>
+                    <Link
+                      href="/payment"
+                      className="block text-gray-700 hover:text-primary-blue py-2 dark:text-gray-300 dark:hover:text-white"
+                      onClick={() => {
+                        setIsMenuOpen(false)
+                        setOpenDropdown(null)
+                      }}
+                    >
+                      {t('online-payment')}
+                    </Link>
+                    <Link
+                      href="/verification"
+                      className="block text-gray-700 hover:text-primary-blue py-2 dark:text-gray-300 dark:hover:text-white"
+                      onClick={() => {
+                        setIsMenuOpen(false)
+                        setOpenDropdown(null)
+                      }}
+                    >
+                      {t('receipt-verification')}
+                    </Link>
+                    <Link
+                      href="/complaint"
+                      className="block text-gray-700 hover:text-primary-blue py-2 dark:text-gray-300 dark:hover:text-white"
+                      onClick={() => {
+                        setIsMenuOpen(false)
+                        setOpenDropdown(null)
+                      }}
+                    >
+                      {t('complaint')}
+                    </Link>
+                  </div>
+                )}
+              </div>
+              
+              <Link
+                href="/news"
+                className="text-gray-700 hover:text-primary-blue font-medium py-2 px-4 rounded-md hover:bg-light-blue dark:text-gray-300 dark:hover:text-white dark:hover:bg-dark-charcoal"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                {t('news')}
+              </Link>
+              
+              <Link
+                href="/faq"
+                className="text-gray-700 hover:text-primary-blue font-medium py-2 px-4 rounded-md hover:bg-light-blue dark:text-gray-300 dark:hover:text-white dark:hover:bg-dark-charcoal"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                {t('faq')}
+              </Link>
+              
+              <Link
+                href="/contact"
+                className="text-gray-700 hover:text-primary-blue font-medium py-2 px-4 rounded-md hover:bg-light-blue dark:text-gray-300 dark:hover:text-white dark:hover:bg-dark-charcoal"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                {t('contact')}
+              </Link>
+              
+              <div className="pt-4 border-t border-gray-200 dark:border-gray-700 mt-2">
+                <div className="flex items-center space-x-3 mb-3 px-4">
+                  <DarkModeToggle />
+                  <LanguageSwitcher />
+                </div>
+                <div className="flex flex-col space-y-2 px-4">
+                  <Link
+                    href="/login"
+                    className="text-gray-700 hover:text-primary-blue font-medium py-2 px-4 rounded-md hover:bg-light-blue dark:text-gray-300 dark:hover:text-white dark:hover:bg-dark-charcoal"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    {t('login')}
+                  </Link>
+                  <Link
+                    href="/register"
+                    className="btn-primary text-center"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    {t('register')}
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+    </header>
+  )
+}
+
+export default Header

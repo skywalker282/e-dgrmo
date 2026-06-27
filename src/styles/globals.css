@@ -1,0 +1,111 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 31, 41, 55; /* gray-800 */
+  --background-start-rgb: 249, 250, 251; /* gray-50 */
+  --background-end-rgb: 255, 255, 255;
+  --primary-color: 5, 113, 204; /* primary-blue #0571CC */
+  --secondary-color: 0, 85, 164; /* secondary-blue */
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 249, 250, 251; /* gray-50 */
+    --background-start-rgb: 17, 24, 39; /* gray-900 */
+    --background-end-rgb: 31, 41, 55; /* gray-800 */
+    --primary-color: 100, 179, 244; /* lighter blue for dark mode */
+    --secondary-color: 147, 197, 253; /* even lighter blue for dark mode */
+  }
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  line-height: 1.6;
+}
+
+/* Corporate design utilities */
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  
+  .corporate-shadow {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  }
+  
+  .corporate-shadow-lg {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  }
+  
+  .corporate-shadow-xl {
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  }
+  
+  .corporate-border {
+    border: 1px solid rgba(0, 0, 0, 0.05);
+  }
+  
+  .corporate-border-dark {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+  }
+  
+  .section-padding {
+    @apply py-16 px-4;
+  }
+  
+  .section-padding-sm {
+    @apply py-12 px-4;
+  }
+  
+  .section-padding-lg {
+    @apply py-24 px-4;
+  }
+  
+  .container-corporate {
+    @apply max-w-7xl mx-auto;
+  }
+}
+
+/* Corporate design components */
+@layer components {
+  .btn-primary {
+    @apply bg-primary-blue hover:bg-blue-800 text-white font-semibold py-3 px-6 rounded transition duration-300 ease-in-out transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-primary-blue focus:ring-opacity-50;
+  }
+  
+  .btn-secondary {
+    @apply bg-white hover:bg-gray-50 text-primary-blue border border-primary-blue font-semibold py-3 px-6 rounded transition duration-300 ease-in-out transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-primary-blue focus:ring-opacity-50;
+  }
+  
+  .btn-accent {
+    @apply bg-accent-gold hover:bg-yellow-500 text-gray-900 font-semibold py-3 px-6 rounded transition duration-300 ease-in-out transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-accent-gold focus:ring-opacity-50;
+  }
+  
+  .card-corporate {
+    @apply bg-white rounded-lg corporate-shadow border border-gray-100 overflow-hidden transition duration-300 ease-in-out hover:corporate-shadow-lg;
+  }
+  
+  .section-title {
+    @apply text-3xl md:text-4xl font-bold text-dark-charcoal mb-4;
+  }
+  
+  .section-subtitle {
+    @apply text-xl text-gray-600 mb-12 max-w-3xl mx-auto text-center;
+  }
+  
+  .corporate-header {
+    @apply bg-white shadow-sm dark:bg-dark-navy;
+  }
+  
+  .corporate-footer {
+    @apply bg-dark-navy text-white pt-16 pb-8;
+  }
+}
