@@ -19,6 +19,9 @@ export const metadata: Metadata = {
   title: "E-DGRMO | Direction Générale des Recettes de la Mongala",
   description:
     "Portail officiel pour les informations fiscales, paiements en ligne, reçus électroniques et services publics numériques",
+  icons: {
+    icon: "/favicon.png",
+  },
 };
 
 export default function RootLayout({
