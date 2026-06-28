@@ -13,20 +13,20 @@ const FAQSection = () => {
 
   const faqs = [
     {
-      question: "Comment puis-je payer mes taxes en ligne ?",
-      answer: "Vous pouvez payer vos taxes en ligne en vous connectant à votre compte, en sélectionnant la taxe concernée, en calculant le montant et en choisissant votre méthode de paiement (mobile money, carte bancaire ou virement bancaire)."
+      questionKey: "faq-question-1",
+      answerKey: "faq-answer-1"
     },
     {
-      question: "Comment vérifier l'authenticité d'un reçu de paiement ?",
-      answer: "Vous pouvez scanner le code QR sur le reçu avec votre téléphone ou entrer le numéro du reçu dans la section 'Vérification de reçu' de notre site pour confirmer son authenticité."
+      questionKey: "faq-question-2",
+      answerKey: "faq-answer-2"
     },
     {
-      question: "Quels documents dois-je fournir pour m'inscrire ?",
-      answer: "Pour l'inscription individuelle, vous aurez besoin d'une pièce d'identité valide. Pour l'inscription d'entreprise, vous devrez fournir les documents d'enregistrement de votre entreprise et les informations fiscales pertinentes."
+      questionKey: "faq-question-3",
+      answerKey: "faq-answer-3"
     },
     {
-      question: "Combien de temps pour recevoir une réponse à une plainte ?",
-      answer: "Nous nous engageons à répondre à toutes les plaintes dans un délai de 5 jours ouvrables. Vous pouvez suivre l'état d'avancement de votre plainte via votre tableau de bord."
+      questionKey: "faq-question-4",
+      answerKey: "faq-answer-4"
     }
   ]
 
@@ -47,14 +47,14 @@ const FAQSection = () => {
                 className="w-full text-left p-6 bg-white rounded-lg corporate-shadow flex justify-between items-center hover:corporate-shadow-lg transition-all duration-300"
                 onClick={() => toggleFAQ(index)}
               >
-                <span className="font-semibold text-dark-charcoal">{faq.question}</span>
+                <span className="font-semibold text-dark-charcoal">{t(faq.questionKey)}</span>
                 <span className="text-primary-blue text-2xl font-bold">
                   {openIndex === index ? '−' : '+'}
                 </span>
               </button>
               {openIndex === index && (
                 <div className="p-6 bg-white rounded-lg corporate-shadow mt-1">
-                  <p className="text-gray-600">{faq.answer}</p>
+                  <p className="text-gray-600">{t(faq.answerKey)}</p>
                 </div>
               )}
             </div>

@@ -2,8 +2,10 @@
 
 import React, { useState } from 'react'
 import Link from 'next/link'
+import { useTranslation } from '@/contexts/TranslationContext'
 
 export default function ForgotPasswordPage() {
+  const { t } = useTranslation()
   const [email, setEmail] = useState('')
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
@@ -28,26 +30,26 @@ export default function ForgotPasswordPage() {
       <div className="max-w-md w-full space-y-8 bg-white p-10 rounded-sm shadow-md">
         <div>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            {isSubmitted ? 'Vérifiez votre email' : 'Mot de passe oublié?'}
+            {isSubmitted ? t('forgot-password-check-email') : t('forgot-password-title')}
           </h2>
           <p className="mt-2 text-center text-sm text-gray">
             {isSubmitted
-              ? 'Nous vous avons envoyé un email avec les instructions pour réinitialiser votre mot de passe.'
-              : 'Saisissez votre adresse email et nous vous enverrons un lien pour réinitialiser votre mot de passe.'}
+              ? t('forgot-password-email-sent')
+              : t('forgot-password-description')}
           </p>
         </div>
 
         {isSubmitted ? (
           <div className="mt-8 p-4 bg-green-50 rounded-sm">
             <p className="text-green-800">
-              Si un compte existe avec l'adresse {email}, vous recevrez un email avec les instructions pour réinitialiser votre mot de passe.
+              {t('forgot-password-if-account-exists')} {email}, {t('forgot-password-reset-instructions')}
             </p>
             <div className="mt-6">
               <Link 
                 href="/login" 
                 className="font-medium text-primary-blue hover:text-blue-700"
               >
-                ← Retour à la connexion
+                ← {t('forgot-password-back-to-login')}
               </Link>
             </div>
           </div>
@@ -61,7 +63,7 @@ export default function ForgotPasswordPage() {
             
             <div>
               <label htmlFor="email-address" className="block text-sm font-medium text-gray-700">
-                Adresse email
+                {t('forgot-password-email-label')}
               </label>
               <div className="mt-1">
                 <input
@@ -73,7 +75,7 @@ export default function ForgotPasswordPage() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-sm shadow-sm placeholder-gray-400 focus:outline-none focus:ring-primary-blue focus:border-primary-blue sm:text-sm"
-                  placeholder="votre@email.com"
+                  placeholder={t('forgot-password-email-placeholder')}
                 />
               </div>
             </div>
@@ -85,9 +87,9 @@ export default function ForgotPasswordPage() {
                 className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-sm text-white bg-primary-blue hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-blue disabled:opacity-50"
               >
                 {isLoading ? (
-                  <span>Envoi en cours...</span>
+                  <span>{t('forgot-password-sending')}</span>
                 ) : (
-                  <span>Envoyer le lien de réinitialisation</span>
+                  <span>{t('forgot-password-send-reset-link')}</span>
                 )}
               </button>
             </div>
@@ -99,7 +101,7 @@ export default function ForgotPasswordPage() {
             href="/login" 
             className="font-medium text-primary-blue hover:text-blue-700"
           >
-            ← Retour à la connexion
+            ← {t('forgot-password-back-to-login')}
           </Link>
         </div>
       </div>

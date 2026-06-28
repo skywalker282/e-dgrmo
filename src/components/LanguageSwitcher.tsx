@@ -7,12 +7,13 @@ const LanguageSwitcher = () => {
   const { language, setLanguage } = useTranslation()
 
   const languages = [
-    { code: 'fr', name: 'Français' },
-    { code: 'ln', name: 'Lingala' }
+    { code: 'en', name: 'English', flag: '🇬🇧' },
+    { code: 'fr', name: 'Français', flag: '🇫🇷' },
+    { code: 'ln', name: 'Lingala', flag: '🇨🇩' }
   ]
 
   const handleLanguageChange = (code: string) => {
-    setLanguage(code as 'fr' | 'ln')
+    setLanguage(code as 'en' | 'fr' | 'ln')
   }
 
   return (
@@ -24,7 +25,7 @@ const LanguageSwitcher = () => {
       >
         {languages.map((lang) => (
           <option key={lang.code} value={lang.code}>
-            {lang.name}
+            {lang.flag} {lang.name}
           </option>
         ))}
       </select>

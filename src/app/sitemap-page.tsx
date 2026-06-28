@@ -1,40 +1,45 @@
+'use client'
+
 import React from 'react'
 import Link from 'next/link'
+import { useTranslation } from '@/contexts/TranslationContext'
 
 export default function Sitemap() {
+  const { t } = useTranslation()
+  
   const siteSections = [
     {
-      title: "Pages principales",
+      titleKey: "sitemap-main-pages",
       links: [
-        { name: "Accueil", href: "/" },
-        { name: "À propos", href: "/about" },
-        { name: "Services", href: "/services" },
-        { name: "Actualités", href: "/news" },
-        { name: "Contact", href: "/contact" }
+        { nameKey: "home", href: "/" },
+        { nameKey: "about", href: "/about" },
+        { nameKey: "services", href: "/services" },
+        { nameKey: "news", href: "/news" },
+        { nameKey: "contact", href: "/contact" }
       ]
     },
     {
-      title: "Services en ligne",
+      titleKey: "sitemap-online-services",
       links: [
-        { name: "Paiement en ligne", href: "/payment" },
-        { name: "Vérification de reçu", href: "/verification" },
-        { name: "Dépôt de plainte", href: "/complaint" }
+        { nameKey: "online-payment", href: "/payment" },
+        { nameKey: "receipt-verification", href: "/verification" },
+        { nameKey: "complaint", href: "/complaint" }
       ]
     },
     {
-      title: "Compte utilisateur",
+      titleKey: "sitemap-user-account",
       links: [
-        { name: "Connexion", href: "/login" },
-        { name: "Inscription", href: "/register" },
-        { name: "Mot de passe oublié", href: "/forgot-password" }
+        { nameKey: "login", href: "/login" },
+        { nameKey: "register", href: "/register" },
+        { nameKey: "forgot-password", href: "/forgot-password" }
       ]
     },
     {
-      title: "Informations légales",
+      titleKey: "sitemap-legal-info",
       links: [
-        { name: "Politique de confidentialité", href: "/privacy" },
-        { name: "Conditions d'utilisation", href: "/terms" },
-        { name: "Mentions légales", href: "/legal" }
+        { nameKey: "footer-privacy", href: "/privacy" },
+        { nameKey: "footer-terms", href: "/terms" },
+        { nameKey: "sitemap-legal-mentions", href: "/legal" }
       ]
     }
   ]
@@ -45,10 +50,10 @@ export default function Sitemap() {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-4xl md:text-5xl font-bold mb-6">
-              Plan du site
+              {t('sitemap-title')}
             </h1>
             <p className="text-xl text-gray-300">
-              Trouvez facilement toutes les pages de notre site
+              {t('sitemap-description')}
             </p>
           </div>
         </div>
@@ -60,7 +65,7 @@ export default function Sitemap() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
               {siteSections.map((section, index) => (
                 <div key={index} className="bg-white rounded-sm shadow-md p-6">
-                  <h2 className="text-xl font-bold mb-4 text-primary-blue">{section.title}</h2>
+                  <h2 className="text-xl font-bold mb-4 text-primary-blue">{t(section.titleKey)}</h2>
                   <ul className="space-y-2">
                     {section.links.map((link, linkIndex) => (
                       <li key={linkIndex}>
@@ -68,7 +73,7 @@ export default function Sitemap() {
                           href={link.href} 
                           className="text-gray hover:text-primary-blue transition"
                         >
-                          {link.name}
+                          {t(link.nameKey)}
                         </Link>
                       </li>
                     ))}

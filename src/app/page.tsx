@@ -1,4 +1,4 @@
-import HeroBanner from '@/components/HeroBanner'
+import SliderHeroBanner from '@/components/SliderHeroBanner'
 import QuickTaxSearch from '@/components/QuickTaxSearch'
 import FeaturedServices from '@/components/FeaturedServices'
 import ValueProposition from '@/components/ValueProposition'
@@ -14,7 +14,7 @@ import ContactSection from '@/components/ContactSection'
 export default function Home() {
   return (
     <main className="min-h-screen bg-white">
-      <HeroBanner />
+      <SliderHeroBanner />
       <QuickTaxSearch />
       <ValueProposition />
       <FeaturedServices />

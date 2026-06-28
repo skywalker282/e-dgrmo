@@ -1,3 +1,62 @@
+# E-DGRMO Website
+
+This is the official website for the Direction Générale des Recettes de la Mongala (E-DGRMO).
+
+## Docker Setup
+
+This project includes Docker configuration for easy deployment and development.
+
+### Building the Docker Image
+
+To build the Docker image, run:
+
+```bash
+docker build -t e-dgrmo-website .
+```
+
+### Running with Docker
+
+To run the application using Docker:
+
+```bash
+docker run -p 3000:3000 e-dgrmo-website
+```
+
+### Running Development with Docker Compose
+
+For development with live reloading, use the development Docker Compose file:
+
+```bash
+docker-compose up
+```
+
+### Running Production with Docker Compose
+
+For production deployment, use the production Docker Compose file:
+
+```bash
+docker-compose -f docker-compose.prod.yml up
+```
+
+This will start the application on http://localhost:3000
+
+### Stopping Docker Compose
+
+To stop the application:
+
+```bash
+docker-compose down
+# or for production
+docker-compose -f docker-compose.prod.yml down
+```
+
+### Environment Variables
+
+You can set environment variables in a `.env.local` file or pass them directly to the Docker container.
+
+## Development
+
+For development instructions, see the main README.
 # E-DGRMO Website Frontend Documentation
 
 ## Overview

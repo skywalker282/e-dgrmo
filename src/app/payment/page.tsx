@@ -3,17 +3,20 @@
 import React from 'react'
 import PaymentForm from '@/components/PaymentForm'
 import PaymentSummary from '@/components/PaymentSummary'
+import { useTranslation } from '@/contexts/TranslationContext'
 
 export default function PaymentPage() {
+  const { t } = useTranslation()
+  
   return (
     <div className="min-h-screen bg-light-blue py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-12">
           <h1 className="text-3xl font-bold text-gray-900 mb-2">
-            Paiement en ligne
+            {t('payment-page-title')}
           </h1>
           <p className="text-gray">
-            Effectuez vos paiements fiscaux en toute sécurité
+            {t('payment-page-description')}
           </p>
         </div>
 

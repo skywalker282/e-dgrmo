@@ -3,8 +3,9 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react'
 import frenchTranslations from '@/locales/french'
 import lingalaTranslations from '@/locales/lingala'
+import englishTranslations from '@/locales/english'
 
-type Language = 'fr' | 'ln'
+type Language = 'fr' | 'ln' | 'en'
 
 interface TranslationContextType {
   language: Language
@@ -17,6 +18,7 @@ const TranslationContext = createContext<TranslationContextType | undefined>(und
 const translations = {
   fr: frenchTranslations,
   ln: lingalaTranslations,
+  en: englishTranslations,
 } as const
 
 type Translations = typeof translations[Language]

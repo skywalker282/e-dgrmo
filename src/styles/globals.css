@@ -20,6 +20,11 @@
   }
 }
 
+html {
+  font-size: 100%;
+  scroll-behavior: smooth;
+}
+
 body {
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(
@@ -28,8 +33,42 @@ body {
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-family: 'IBM Plex Sans', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   line-height: 1.6;
+  font-size: clamp(0.95rem, 1vw + 0.2rem, 1.02rem);
+}
+
+h1 {
+  font-size: clamp(2.2rem, 4.5vw, 3.5rem);
+}
+
+h2 {
+  font-size: clamp(1.75rem, 3.5vw, 2.75rem);
+}
+
+h3 {
+  font-size: clamp(1.25rem, 2.4vw, 2rem);
+}
+
+h4,
+label,
+button,
+input,
+select,
+textarea,
+a {
+  font-size: clamp(0.95rem, 0.9vw, 1rem);
+}
+
+@media (max-width: 768px) {
+  .corporate-header {
+    font-size: 0.95rem;
+  }
+
+  .mobile-nav-link,
+  .mobile-nav-toggle {
+    font-size: 0.98rem;
+  }
 }
 
 /* Corporate design utilities */
@@ -60,6 +99,10 @@ body {
   
   .section-padding {
     @apply py-16 px-4;
+  }
+
+  .container-corporate {
+    @apply max-w-7xl mx-auto px-4 sm:px-6;
   }
   
   .section-padding-sm {
@@ -103,6 +146,18 @@ body {
   
   .corporate-header {
     @apply bg-white shadow-sm dark:bg-dark-navy;
+  }
+
+  .nav-dropdown {
+    @apply bg-white shadow-lg rounded-lg py-2 border border-gray-200 dark:bg-dark-navy dark:border-gray-700;
+  }
+
+  .nav-link {
+    @apply text-gray-700 hover:text-primary-blue transition px-4 py-3 rounded-md hover:bg-light-blue dark:text-gray-300 dark:hover:text-white dark:hover:bg-dark-charcoal;
+  }
+
+  .nav-link-strong {
+    @apply text-gray-900 font-semibold dark:text-gray-100;
   }
   
   .corporate-footer {

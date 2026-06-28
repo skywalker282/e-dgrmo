@@ -1,18 +1,23 @@
+'use client'
+
 import React from 'react'
 import NewsList from '@/components/NewsList'
 import Pagination from '@/components/Pagination'
+import { useTranslation } from '@/contexts/TranslationContext'
 
 export default function NewsPage() {
+  const { t } = useTranslation()
+  
   return (
     <div className="min-h-screen">
       <div className="bg-dark-navy text-white py-20">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-4xl md:text-5xl font-bold mb-6">
-              Actualités et annonces
+              {t('news-page-title')}
             </h1>
             <p className="text-xl text-gray-300">
-              Restez informé des dernières mises à jour et annonces
+              {t('news-page-description')}
             </p>
           </div>
         </div>

@@ -1,39 +1,39 @@
-'use client'
+"use client";
 
-import React from 'react'
-import Link from 'next/link'
-import Image from 'next/image'
-import { useTranslation } from '@/contexts/TranslationContext'
+import React from "react";
+import Link from "next/link";
+import Image from "next/image";
+import { useTranslation } from "@/contexts/TranslationContext";
 
 const Footer = () => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   const aboutLinks = [
-    { name: 'À propos de DGRMO', href: '/about' },
-    { name: 'Mission et vision', href: '/mission' },
-    { name: 'Organisation', href: '/organization' },
-    { name: 'Actualités', href: '/news' },
-  ]
+    { nameKey: "footer-about-dgrmo", href: "/about" },
+    { nameKey: "footer-mission-vision", href: "/mission" },
+    { nameKey: "footer-organization", href: "/organization" },
+    { nameKey: "footer-news", href: "/news" },
+  ];
 
   const serviceLinks = [
-    { name: 'Paiement en ligne', href: '/payment' },
-    { name: 'Vérification de reçu', href: '/verification' },
-    { name: 'Catégories de taxes', href: '/tax-categories' },
-    { name: 'Dépôt de plainte', href: '/complaint' },
-  ]
+    { nameKey: "online-payment", href: "/payment" },
+    { nameKey: "receipt-verification", href: "/verification" },
+    { nameKey: "tax-categories", href: "/tax-categories" },
+    { nameKey: "complaint", href: "/complaint" },
+  ];
 
   const quickLinks = [
-    { name: 'Accueil', href: '/' },
-    { name: 'Services', href: '/services' },
-    { name: 'FAQ', href: '/faq' },
-    { name: 'Contact', href: '/contact' },
-  ]
+    { nameKey: "home", href: "/" },
+    { nameKey: "services", href: "/services" },
+    { nameKey: "faq", href: "/faq" },
+    { nameKey: "contact", href: "/contact" },
+  ];
 
   const contactInfo = [
-    { label: 'Adresse', value: t('footer-address') },
-    { label: 'Téléphone', value: t('footer-phone') },
-    { label: 'Email', value: t('footer-email') },
-  ]
+    { labelKey: "footer-address-label", value: t("footer-address") },
+    { labelKey: "footer-phone-label", value: t("footer-phone") },
+    { labelKey: "footer-email-label", value: t("footer-email") },
+  ];
 
   return (
     <footer className="corporate-footer">
@@ -42,28 +42,37 @@ const Footer = () => {
           {/* Logo and Description */}
           <div className="lg:col-span-1">
             <div className="flex items-center mb-4">
-              <div className="relative w-16 h-16 mr-0">
-                <Image 
-                  src="/logo.png" 
-                  alt="E-DGRMO Logo" 
+              <div className="relative w-24 h-24 sm:w-28 sm:h-28 md:w-40 md:h-40 mr-0">
+                <Image
+                  src="/logo.png"
+                  alt="E-DGRMO Logo"
                   fill
                   className="object-contain"
                 />
               </div>
             </div>
             <p className="text-gray-400 mb-4 text-sm">
-              Portail officiel de la Direction Générale des Recettes de la Mongala pour les services fiscaux numériques.
+              {t("footer-description")}
             </p>
             <div className="flex space-x-4">
-              <a href="#" className="text-gray-400 hover:text-white transition-colors duration-300">
+              <a
+                href="#"
+                className="text-gray-400 hover:text-white transition-colors duration-300"
+              >
                 <span className="sr-only">Facebook</span>
                 <span className="text-xl">f</span>
               </a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors duration-300">
+              <a
+                href="#"
+                className="text-gray-400 hover:text-white transition-colors duration-300"
+              >
                 <span className="sr-only">Twitter</span>
                 <span className="text-xl">t</span>
               </a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors duration-300">
+              <a
+                href="#"
+                className="text-gray-400 hover:text-white transition-colors duration-300"
+              >
                 <span className="sr-only">LinkedIn</span>
                 <span className="text-xl">in</span>
               </a>
@@ -72,12 +81,17 @@ const Footer = () => {
 
           {/* About */}
           <div>
-            <h3 className="text-lg font-semibold mb-4 text-white">{t('footer-about')}</h3>
+            <h3 className="text-lg font-semibold mb-4 text-white">
+              {t("footer-about")}
+            </h3>
             <ul className="space-y-2">
               {aboutLinks.map((link, index) => (
                 <li key={index}>
-                  <Link href={link.href} className="text-gray-400 hover:text-white transition-colors duration-300">
-                    {link.name}
+                  <Link
+                    href={link.href}
+                    className="text-gray-400 hover:text-white transition-colors duration-300"
+                  >
+                    {t(link.nameKey)}
                   </Link>
                 </li>
               ))}
@@ -86,12 +100,17 @@ const Footer = () => {
 
           {/* Services */}
           <div>
-            <h3 className="text-lg font-semibold mb-4 text-white">{t('footer-services')}</h3>
+            <h3 className="text-lg font-semibold mb-4 text-white">
+              {t("footer-services")}
+            </h3>
             <ul className="space-y-2">
               {serviceLinks.map((link, index) => (
                 <li key={index}>
-                  <Link href={link.href} className="text-gray-400 hover:text-white transition-colors duration-300">
-                    {link.name}
+                  <Link
+                    href={link.href}
+                    className="text-gray-400 hover:text-white transition-colors duration-300"
+                  >
+                    {t(link.nameKey)}
                   </Link>
                 </li>
               ))}
@@ -100,12 +119,17 @@ const Footer = () => {
 
           {/* Quick Links */}
           <div>
-            <h3 className="text-lg font-semibold mb-4 text-white">{t('footer-quick-links')}</h3>
+            <h3 className="text-lg font-semibold mb-4 text-white">
+              {t("footer-quick-links")}
+            </h3>
             <ul className="space-y-2">
               {quickLinks.map((link, index) => (
                 <li key={index}>
-                  <Link href={link.href} className="text-gray-400 hover:text-white transition-colors duration-300">
-                    {link.name}
+                  <Link
+                    href={link.href}
+                    className="text-gray-400 hover:text-white transition-colors duration-300"
+                  >
+                    {t(link.nameKey)}
                   </Link>
                 </li>
               ))}
@@ -114,11 +138,15 @@ const Footer = () => {
 
           {/* Contact */}
           <div>
-            <h3 className="text-lg font-semibold mb-4 text-white">{t('footer-contact')}</h3>
+            <h3 className="text-lg font-semibold mb-4 text-white">
+              {t("footer-contact")}
+            </h3>
             <ul className="space-y-3">
               {contactInfo.map((info, index) => (
                 <li key={index}>
-                  <span className="text-gray-400 text-sm">{info.label}:</span>
+                  <span className="text-gray-400 text-sm">
+                    {t(info.labelKey)}:
+                  </span>
                   <p className="text-white text-sm">{info.value}</p>
                 </li>
               ))}
@@ -127,23 +155,30 @@ const Footer = () => {
         </div>
 
         <div className="border-t border-gray-800 pt-8 mt-8">
-          <div className="flex flex-col md:flex-row justify-between items-center">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-3">
             <p className="text-gray-400 text-sm">
-              &copy; {new Date().getFullYear()} {t('footer-copyright')}
+              &copy; {new Date().getFullYear()} {t("footer-copyright")} •{" "}
+              {t("footer-maintained-by")}
             </p>
             <div className="flex space-x-6 mt-4 md:mt-0">
-              <Link href="/privacy" className="text-gray-400 hover:text-white text-sm transition-colors duration-300">
-                {t('footer-privacy')}
+              <Link
+                href="/privacy"
+                className="text-gray-400 hover:text-white text-sm transition-colors duration-300"
+              >
+                {t("footer-privacy")}
               </Link>
-              <Link href="/terms" className="text-gray-400 hover:text-white text-sm transition-colors duration-300">
-                {t('footer-terms')}
+              <Link
+                href="/terms"
+                className="text-gray-400 hover:text-white text-sm transition-colors duration-300"
+              >
+                {t("footer-terms")}
               </Link>
             </div>
           </div>
         </div>
       </div>
     </footer>
-  )
-}
+  );
+};
 
-export default Footer
+export default Footer;

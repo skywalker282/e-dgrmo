@@ -3,8 +3,10 @@
 import React, { useState } from 'react'
 import VerificationMethods from '@/components/VerificationMethods'
 import VerificationResult from '@/components/VerificationResult'
+import { useTranslation } from '@/contexts/TranslationContext'
 
 export default function VerificationPage() {
+  const { t } = useTranslation()
   const [verificationResult, setVerificationResult] = useState<any>(null)
 
   return (
@@ -12,10 +14,10 @@ export default function VerificationPage() {
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-12">
           <h1 className="text-3xl font-bold text-gray-900 mb-2">
-            Vérification de reçu
+            {t('verification-page-title')}
           </h1>
           <p className="text-gray">
-            Vérifiez l'authenticité de vos reçus de paiement
+            {t('verification-page-description')}
           </p>
         </div>
 
