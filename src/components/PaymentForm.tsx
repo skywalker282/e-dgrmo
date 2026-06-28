@@ -1,31 +1,51 @@
-'use client'
+"use client";
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
+
+const taxes = [
+  { id: "income", name: "Impôt sur le revenu", rate: "3-30%" },
+  {
+    id: "property",
+    name: "Taxe foncière",
+    rate: "0.5% de la valeur cadastrale",
+  },
+  { id: "business", name: "Taxe professionnelle", rate: "Variable" },
+  { id: "vat", name: "TVA", rate: "16%" },
+  { id: "registration", name: "Droits d'enregistrement", rate: "Variable" },
+  { id: "vehicle", name: "Taxe sur les véhicules", rate: "Variable" },
+];
+
+const paymentMethods = [
+  { id: "mobile-money", name: "Mobile Money", icon: "📱" },
+  { id: "bank-transfer", name: "Virement bancaire", icon: "🏦" },
+  { id: "credit-card", name: "Carte de crédit", icon: "💳" },
+];
 
 const PaymentForm = () => {
-  const [selectedTax, setSelectedTax] = useState('')
-  const [amount, setAmount] = useState('')
-  const [paymentMethod, setPaymentMethod] = useState('')
+  const searchParams = useSearchParams();
+  const [selectedTax, setSelectedTax] = useState("");
+  const [amount, setAmount] = useState("");
+  const [paymentMethod, setPaymentMethod] = useState("");
 
-  const taxes = [
-    { id: 'income', name: 'Impôt sur le revenu', rate: '3-30%' },
-    { id: 'property', name: 'Taxe foncière', rate: '0.5% de la valeur cadastrale' },
-    { id: 'business', name: 'Taxe professionnelle', rate: 'Variable' },
-    { id: 'vat', name: 'TVA', rate: '16%' },
-    { id: 'vehicle', name: 'Taxe sur les véhicules', rate: 'Variable' },
-  ]
-
-  const paymentMethods = [
-    { id: 'mobile-money', name: 'Mobile Money', icon: '📱' },
-    { id: 'bank-transfer', name: 'Virement bancaire', icon: '🏦' },
-    { id: 'credit-card', name: 'Carte de crédit', icon: '💳' },
-  ]
+  useEffect(() => {
+    const taxParam = searchParams.get("tax");
+    if (taxParam) {
+      const matchingTax = taxes.find((tax) => tax.id === taxParam);
+      if (matchingTax) {
+        setSelectedTax(matchingTax.id);
+      }
+    }
+  }, [searchParams]);
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    // Handle payment logic here
-    console.log('Payment attempt with:', { selectedTax, amount, paymentMethod })
-  }
+    e.preventDefault();
+    console.log("Payment attempt with:", {
+      selectedTax,
+      amount,
+      paymentMethod,
+    });
+  };
 
   return (
     <div className="bg-white rounded-sm shadow-md p-8">
@@ -76,8 +96,8 @@ const PaymentForm = () => {
                 onClick={() => setPaymentMethod(method.id)}
                 className={`p-4 border rounded-sm text-center ${
                   paymentMethod === method.id
-                    ? 'border-primary-blue bg-blue-50'
-                    : 'border-gray-300'
+                    ? "border-primary-blue bg-blue-50"
+                    : "border-gray-300"
                 }`}
               >
                 <div className="text-2xl mb-2">{method.icon}</div>
@@ -93,13 +113,11 @@ const PaymentForm = () => {
               <span className="text-yellow-500">⚠️</span>
             </div>
             <div className="ml-3">
-              <h3 className="text-sm font-medium text-yellow-800">
-                Important
-              </h3>
+              <h3 className="text-sm font-medium text-yellow-800">Important</h3>
               <div className="mt-2 text-sm text-yellow-700">
                 <p>
-                  Assurez-vous que les informations sont correctes avant de procéder au paiement. 
-                  Les paiements ne sont pas remboursables.
+                  Assurez-vous que les informations sont correctes avant de
+                  procéder au paiement. Les paiements ne sont pas remboursables.
                 </p>
               </div>
             </div>
@@ -117,7 +135,7 @@ const PaymentForm = () => {
         </div>
       </form>
     </div>
-  )
-}
+  );
+};
 
-export default PaymentForm
+export default PaymentForm;
