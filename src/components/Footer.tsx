@@ -42,14 +42,13 @@ const Footer = () => {
           {/* Logo and Description */}
           <div className="lg:col-span-1">
             <div className="flex items-center mb-4">
-              <div className="relative w-24 h-24 sm:w-28 sm:h-28 md:w-40 md:h-40 mr-0">
-                <Image
-                  src="/logo.png"
-                  alt="E-DGRMO Logo"
-                  fill
-                  className="object-contain"
-                />
-              </div>
+              <Image
+                src="/logo.png"
+                alt="E-DGRMO Logo"
+                width={160}
+                height={160}
+                className="w-24 sm:w-28 md:w-40 h-auto object-contain"
+              />
             </div>
             <p className="text-gray-400 mb-4 text-sm">
               {t("footer-description")}
